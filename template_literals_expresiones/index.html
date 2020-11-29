@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Literals - Expresiones</title>
+</head>
+<body>
+    <script>
+        const nombre = 'BawbamGeek2'
+        console.log(`Mi nombre es: ${nombre}`)
+        console.log(`Mi edad es: ${27}`)
+        console.log(`String ${'Curso de JavaScript para React'}`)
+        console.log(`Variables ${x = 'Ivan'}`)
+        console.log(`Usando funciones ${ (function name() { return 'autoejecutando Bawbam'}) ()}`) // Autoejecutar la funcion
+        console.log(`Usando funciones autoejecutadas ${ (function () { return 'autoejecutando Bawbam sin nombre'}) ()}`) // Autoejecutar la funcion sin nombre de la función
+        console.log(`Usando funciones Arrow ${ (() => { return 'Ivan Arrow '}) ()}`) //Arrow function
+        console.log(`Usando ternarios ${true && 'Ivan Ternario'}`) // Usando ternarios
+        console.log(`Usando ternarios ${false ? 'Ivan true' : 'Ivan False'}`)//ternarios
+        console.log(`Usando map (function) ${['a', 'b', 'c'].map(letra => `${letra}-styled`)}`)
+        // usando function map con 2 template literals
+    </script>
+</body>
+</html>

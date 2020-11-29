@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Components</title>
+    <style>
+        body {
+            background-color: #7EC8E3;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor en el DOM, donde se renderizara nuestro componente-->
+    <div id="container"></div>
+    <script>
+
+        /*
+          component() es la función encargada de generar un componente y mandarlo
+          como parametro a la función render()
+          Nota:
+          component() debe de retorna una función
+        */
+        function component(strings, ...dynamicValues){
+            // recibe las propiedades del componente
+            return function(props){
+                // creamos una copia de los strings para poder modificarlos
+                let newContent = strings.slice()
+                // agregamos los valores de las propiedades a newContent
+                dynamicValues.forEach((value, index) => {
+                    newContent[index] += props[value]
+                })
+                // retonarnamos el newContent completo
+                return newContent.join('')
+            }
+        }
+        /*
+           render() es la función encargada de renderizar un componente en el DOM
+           Recibe dos parametros:
+           component: Un string de código HTML
+           container: Un elemento del DOM. Ejemplo: document.body
+        */
+        function render(component, container){
+            container.innerHTML = component
+        }
+
+        // Objeto de propiedades del Componente
+        const props = {
+            message: "No te rindas &#9889;",
+            name: "Ivan",
+        }
+
+        /*
+            Funciones de styles
+        */
+        // const styled = {
+        //     h1: function(styles){
+        //         return function(content){
+        //             return `
+        //             <h1 style="${styles}"> ${content}</h1>
+        //         `
+        //         }
+        //     }
+        // }
+
+        // Lista de TAGS
+        const htmlTags = ["h1", "h2", "h3", "h4", "br"]
+
+        const styled = {}
+
+        htmlTags.forEach((tag, index) => {
+            styled[tag] = function(styles){
+                return function(content){
+                    return `<${tag} style="${styles}">${content}</${tag}>`
+                }
+            }
+        })
+        // Creamos un StyleComponent
+        /*
+            Es una función que recibe el componente(data) para aplicar estilos
+        */
+        const TitleStyled = styled.h1`
+            color: orange;
+            font-size: 50px;
+            text-shadow: 2px 2px 0 black;
+            text-align: center;
+            line-height: 100vh;
+        `
+
+
+        // Declaro un componente y le paso sus propiedades
+        const Title = component`${'name'} <strong>${'message'}</strong> `(props)
+
+        // Renderizo el componente en su container dentro del DOM
+        render(TitleStyled(Title), window.container)
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes - Tagged Templates</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            background-color: #FF7077;
+            justify-content: center;
+            align-items: center;
+        }
+
+        strong {
+            color: #F8EA8C;
+            padding: .15em .4em;
+            background: #dfb2f4;
+            border-radius: 20px;
+            border: 2px solid #F8EA8C;
+        }
+        .get-qoute-btn{
+            color: #FFE9E4;
+            background: #FFB067;
+            border-radius: 5px;
+            border: 2px solid #F8EA8C;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .container{
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
+        }
+        .qoute{
+            text-align: center;
+            color: #f2f5ff;
+            font-size: 1.5em;
+            text-shadow: 1px 1px rgba(0, 0, 0, .5);
+        }
+        .btn{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="qoute" id="id_qoute"></div>
+        <div class="btn">
+            <button class="get-qoute-btn" onclick="getQuote();">Frase</button>
+        </div>
+    </div>
+    <script>
+        let message = ''
+        const quotesList = [
+            "Un problema entendido, es un problema resuelto al 50%",
+            "Cada minuto que pasa es otra oportunidad de seguir cambiando",
+            "Todos los hombres mueren, pero no todos realmente viven",
+            "Pensamos demasiado y sentimos muy poco",
+            "Hasta el infinito y más allá",
+            "No te rindas",
+        ]
+        function taggedTemplate(strings, ...dynamicValues){
+            // console.log(strings, dynamicValues)
+            let newText = ''
+            strings.forEach((string, index) =>{
+                // const formatQuote = `<strong>${dynamicValues[index]}</strong>`
+                // console.log(string, ":", dynamicValues[index])
+                const formatQuote = dynamicValues[index] ? `<strong>${dynamicValues[index]}</strong>` : ''
+                // newText = newText + string + formatQuote
+                newText += `${string} ${formatQuote}`
+            })
+            return `${newText}`
+        }
+
+        function getRandomQuote(){
+            let random_qoute = Math.floor(Math.random() * (quotesList.length));
+            return random_qoute
+        }
+
+        function getFormatQoute(quote){
+            let longitud_total = quote.length
+            let longitud_media = parseInt(longitud_total/2)
+            QuoteFormat = taggedTemplate`${quote.slice(longitud_media, longitud_total)}`
+            message = `${quote.slice(0,longitud_media)} ${QuoteFormat}`
+            return `<p>${message}</p>`
+        }
+
+        function getQuote(){
+            qoute = getRandomQuote(quotesList)
+            qoute_format = getFormatQoute(quotesList[qoute])
+            document.getElementById("id_qoute").innerHTML = qoute_format
+        }
+
+    </script>
+</body>
+</html>
